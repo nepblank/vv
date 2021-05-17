@@ -10,7 +10,7 @@ public class playercontrl : MonoBehaviour
     public float JumpForce = 100;
     private float fInput = 0.0f;
     public float MaxSpeed = 5;
-    private bool bFaceRight = true;
+    public bool bFaceRight = true;
     private bool bGrounded = false;
     Transform mGroundCheck;
     private bool bJump;
@@ -45,7 +45,14 @@ public class playercontrl : MonoBehaviour
         bGrounded =Physics2D.Linecast(transform.position, mGroundCheck.position, 1 << LayerMask.NameToLayer("Ground"));
       mGroundCheck = transform.Find("GroundCheck");
 
-        
+
+        if (bJump)
+        {
+
+            rigidBody.AddForce(new Vector2(0f, JumpForce));
+            bJump = false;
+        }
+
     }
 
 
@@ -69,12 +76,7 @@ public class playercontrl : MonoBehaviour
         
 
 
-        if (bJump)
-        {
-            
-            rigidBody.AddForce(new Vector2(0f, JumpForce));
-            bJump = false;
-        }
+        
 
 
     }
